@@ -1,9 +1,13 @@
 package k8s
 
 import (
+	"context"
+	"errors"
+
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 // GetCommands returns cluster commands.
@@ -48,4 +52,26 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("k8s", "version", "list").Override(versionListBuilder)
 
 	return cmds
+}
+
+func SecretKey(ctx context.Context) (string, error) {
+	config, _ := scw.LoadConfigFromPath(core.ExtractConfigPath(ctx))
+	profileName := core.ExtractProfileName(ctx)
+
+	switch {
+	// Environment variable check
+	case core.ExtractEnv(ctx, scw.ScwSecretKeyEnv) != "":
+		return core.ExtractEnv(ctx, scw.ScwSecretKeyEnv), nil
+	// There is no config file
+	case config == nil:
+		return "", errors.New("config not provided")
+	// Config file with profile name
+	case config.Profiles[profileName] != nil && config.Profiles[profileName].SecretKey != nil:
+		return *config.Profiles[profileName].SecretKey, nil
+	// Default config
+	case config.Profile.SecretKey != nil:
+		return *config.Profile.SecretKey, nil
+	}
+
+	return "", errors.New("unable to find secret key")
 }

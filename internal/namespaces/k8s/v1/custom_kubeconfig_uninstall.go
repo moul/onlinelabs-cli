@@ -8,7 +8,6 @@ import (
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	api "github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1/types"
 )
 
 type k8sKubeconfigUninstallRequest struct {
@@ -63,43 +62,45 @@ func k8sKubeconfigUninstallRun(ctx context.Context, argsI interface{}) (i interf
 		return fmt.Sprintf("File %s does not exist.", kubeconfigPath), nil
 	}
 
-	existingKubeconfig, err := openAndUnmarshalKubeconfig(kubeconfigPath)
+	kmc, err := LoadKubeMapConfig(ctx, kubeconfigPath)
 	if err != nil {
 		return nil, err
 	}
+	kubeconfig := kmc.Kubeconfig()
 
-	newClusters := []api.NamedCluster{}
-	for _, cluster := range existingKubeconfig.Clusters {
-		if !strings.HasSuffix(cluster.Name, request.ClusterID) {
-			newClusters = append(newClusters, cluster)
+	for _, kubeconfigContext := range kubeconfig.Contexts {
+		if strings.HasSuffix(kubeconfigContext.Name, request.ClusterID) {
+			err = kmc.RemoveContext(kubeconfigContext.Name)
+			if err != nil {
+				return nil, err
+			}
 		}
 	}
 
-	newContexts := []api.NamedContext{}
-	for _, kubeconfigContext := range existingKubeconfig.Contexts {
-		if !strings.HasSuffix(kubeconfigContext.Name, request.ClusterID) {
-			newContexts = append(newContexts, kubeconfigContext)
+	for _, cluster := range kubeconfig.Clusters {
+		if strings.HasSuffix(cluster.Name, request.ClusterID) {
+			err = kmc.RemoveCluster(cluster.Name)
+			if err != nil {
+				return nil, err
+			}
 		}
 	}
 
-	newUsers := []api.NamedAuthInfo{}
-	for _, user := range existingKubeconfig.AuthInfos {
-		if !strings.HasSuffix(user.Name, request.ClusterID) {
-			newUsers = append(newUsers, user)
+	for _, user := range kubeconfig.AuthInfos {
+		if strings.HasSuffix(user.Name, request.ClusterID) {
+			err = kmc.RemoveUser(user.Name)
+			if err != nil {
+				return nil, err
+			}
 		}
 	}
 
 	// reset the current context
-	if strings.HasSuffix(existingKubeconfig.CurrentContext, request.ClusterID) {
-		existingKubeconfig.CurrentContext = ""
+	if strings.HasSuffix(kubeconfig.CurrentContext, request.ClusterID) {
+		kmc.CurrentContext = ""
 	}
 
-	// write the modification
-	existingKubeconfig.Clusters = newClusters
-	existingKubeconfig.Contexts = newContexts
-	existingKubeconfig.AuthInfos = newUsers
-
-	err = marshalAndWriteKubeconfig(existingKubeconfig, kubeconfigPath)
+	err = kmc.Save(kubeconfigPath)
 	if err != nil {
 		return nil, err
 	}

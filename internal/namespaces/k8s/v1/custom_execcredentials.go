@@ -3,12 +3,10 @@ package k8s
 import (
 	"context"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/validation"
 )
 
@@ -28,25 +26,9 @@ func k8sExecCredentialCommand() *core.Command {
 }
 
 func k8sExecCredentialRun(ctx context.Context, _ interface{}) (i interface{}, e error) {
-	config, _ := scw.LoadConfigFromPath(core.ExtractConfigPath(ctx))
-	profileName := core.ExtractProfileName(ctx)
-
-	var token string
-	switch {
-	// Environment variable check
-	case core.ExtractEnv(ctx, scw.ScwSecretKeyEnv) != "":
-		token = core.ExtractEnv(ctx, scw.ScwSecretKeyEnv)
-	// There is no config file
-	case config == nil:
-		return nil, errors.New("config not provided")
-	// Config file with profile name
-	case config.Profiles[profileName] != nil && config.Profiles[profileName].SecretKey != nil:
-		token = *config.Profiles[profileName].SecretKey
-	// Default config
-	case config.Profile.SecretKey != nil:
-		token = *config.Profile.SecretKey
-	default:
-		return nil, errors.New("unable to find secret key")
+	token, err := SecretKey(ctx)
+	if err != nil {
+		return nil, err
 	}
 
 	if !validation.IsSecretKey(token) {
