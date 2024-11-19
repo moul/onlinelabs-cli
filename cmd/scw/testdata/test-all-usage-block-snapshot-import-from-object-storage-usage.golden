@@ -1,0 +1,25 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+The bucket must contain a QCOW2 image.
+The bucket can be imported into any Availability Zone as long as it is in the same region as the bucket.
+
+USAGE:
+  scw block snapshot import-from-object-storage [arg=value ...]
+
+ARGS:
+  [bucket]          Scaleway Object Storage bucket where the object is stored
+  [key]             The object key inside the given bucket
+  [name]            Name of the snapshot
+  [project-id]      Project ID to use. If none is passed the default project ID will be used
+  [tags.{index}]    List of tags assigned to the snapshot
+  [size]            Size of the snapshot
+  [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3)
+
+FLAGS:
+  -h, --help   help for import-from-object-storage
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

@@ -44,7 +44,6 @@ ARGS:
   [zone=fr-par-1]                          Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3)
 
 DEPRECATED ARGS:
-  [bootscript]          
   [routed-ip-enabled]   True to configure the instance so it uses the new routed IP mode (once this is set to True you cannot set it back to False)
   [enable-ipv6]         
 

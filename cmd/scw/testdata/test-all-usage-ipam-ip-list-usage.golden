@@ -14,12 +14,12 @@ ARGS:
   [vpc-id]                   VPC ID to filter for.
   [attached]                 Defines whether to filter only for IPs which are attached to a resource
   [resource-id]              Resource ID to filter for. Only IPs attached to this resource will be returned
-  [resource-type]            Resource type to filter for. Only IPs attached to this type of resource will be returned (unknown_type | custom | instance_server | instance_ip | instance_private_nic | lb_server | fip_ip | vpc_gateway | vpc_gateway_network | k8s_node | k8s_cluster | rdb_instance | redis_cluster | baremetal_server | baremetal_private_nic | llm_deployment)
+  [resource-type]            Resource type to filter for. Only IPs attached to this type of resource will be returned (unknown_type | custom | instance_server | instance_ip | instance_private_nic | lb_server | fip_ip | vpc_gateway | vpc_gateway_network | k8s_node | k8s_cluster | rdb_instance | redis_cluster | baremetal_server | baremetal_private_nic | llm_deployment | mgdb_instance)
   [mac-address]              MAC address to filter for. Only IPs attached to a resource with this MAC address will be returned
   [tags.{index}]             Tags to filter for, only IPs with one or more matching tags will be returned
   [is-ipv6]                  Defines whether to filter only for IPv4s or IPv6s
   [resource-name]            Attached resource name to filter for, only IPs attached to a resource with this string within their name will be returned.
-  [resource-types.{index}]   Resource types to filter for. Only IPs attached to these types of resources will be returned (unknown_type | custom | instance_server | instance_ip | instance_private_nic | lb_server | fip_ip | vpc_gateway | vpc_gateway_network | k8s_node | k8s_cluster | rdb_instance | redis_cluster | baremetal_server | baremetal_private_nic | llm_deployment)
+  [resource-types.{index}]   Resource types to filter for. Only IPs attached to these types of resources will be returned (unknown_type | custom | instance_server | instance_ip | instance_private_nic | lb_server | fip_ip | vpc_gateway | vpc_gateway_network | k8s_node | k8s_cluster | rdb_instance | redis_cluster | baremetal_server | baremetal_private_nic | llm_deployment | mgdb_instance)
   [organization-id]          Organization ID to filter for. Only IPs belonging to this Organization will be returned
   [region=fr-par]            Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 

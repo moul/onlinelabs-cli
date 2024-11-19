@@ -1,0 +1,21 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+List all users of a given Database Instance.
+
+USAGE:
+  scw mongodb user list [arg=value ...]
+
+ARGS:
+  [name]            Name of the user
+  [order-by]        Criteria to use when requesting user listing (name_asc | name_desc)
+  instance-id       UUID of the Database Instance
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
+
+FLAGS:
+  -h, --help   help for list
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

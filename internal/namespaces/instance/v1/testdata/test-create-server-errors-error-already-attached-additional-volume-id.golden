@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Volume 776911c7-35ec-47dd-9bdd-4c896ade1881 is already attached to 421f0309-363f-4616-acba-a6bf8d49af4f server
+Failed to build volume template: volume 776911c7-35ec-47dd-9bdd-4c896ade1881 is already attached to 421f0309-363f-4616-acba-a6bf8d49af4f server
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
-  "error": "volume 776911c7-35ec-47dd-9bdd-4c896ade1881 is already attached to 421f0309-363f-4616-acba-a6bf8d49af4f server"
+  "error": "failed to build volume template: volume 776911c7-35ec-47dd-9bdd-4c896ade1881 is already attached to 421f0309-363f-4616-acba-a6bf8d49af4f server"
 }

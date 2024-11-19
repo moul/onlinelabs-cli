@@ -6,9 +6,10 @@ USAGE:
   scw cockpit data-source update [arg=value ...]
 
 ARGS:
-  data-source-id    ID of the data source to update
-  [name]            Updated name of the data source
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  data-source-id     ID of the data source to update
+  [name]             Updated name of the data source
+  [retention-days]   BETA - Duration for which the data will be retained in the data source
+  [region=fr-par]    Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for update

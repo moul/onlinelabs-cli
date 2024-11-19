@@ -206,7 +206,8 @@ scw cockpit data-source create [arg=value ...]
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | name |  | Data source name |
-| type | One of: `unknown_type`, `metrics`, `logs`, `traces`, `alerts` | Data source type |
+| type | One of: `unknown_type`, `metrics`, `logs`, `traces` | Data source type |
+| retention-days |  | BETA - Duration for which the data will be retained in the data source |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -270,7 +271,7 @@ scw cockpit data-source list [arg=value ...]
 | order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `type_asc`, `type_desc` | Sort order for data sources in the response |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | origin | One of: `unknown_origin`, `scaleway`, `external` | Origin to filter for, only data sources with matching origin will be returned |
-| types.{index} | One of: `unknown_type`, `metrics`, `logs`, `traces`, `alerts` | Types to filter for, only data sources with matching types will be returned |
+| types.{index} | One of: `unknown_type`, `metrics`, `logs`, `traces` | Types to filter for, only data sources with matching types will be returned |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
@@ -292,6 +293,7 @@ scw cockpit data-source update [arg=value ...]
 |------|---|-------------|
 | data-source-id | Required | ID of the data source to update |
 | name |  | Updated name of the data source |
+| retention-days |  | BETA - Duration for which the data will be retained in the data source |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -481,6 +483,7 @@ Pricing plans management commands.
 ### Get current plan
 
 Retrieve a pricing plan for the given Project, specified by the ID of the Project.
+Deprecated, retention is now managed at the data source level.
 
 **Usage:**
 
@@ -500,6 +503,7 @@ scw cockpit plan get [arg=value ...]
 ### List plan types
 
 Retrieve a list of available pricing plan types.
+Deprecated, retention is now managed at the data source level.
 
 **Usage:**
 
@@ -519,6 +523,7 @@ scw cockpit plan list [arg=value ...]
 ### Apply a pricing plan
 
 Apply a pricing plan on a given Project. You must specify the ID of the pricing plan type. Note that you will be billed for the plan you apply.
+Deprecated, retention is now managed at the data source level.
 
 **Usage:**
 

@@ -1,0 +1,23 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Restore a given snapshot of a Database Instance. You must specify, in the endpoint, the `snapshot_id` parameter of the snapshot you want to restore, the `instance_name` of the new Database Instance, `node_type` of the new Database Instance and `node_number` of the new Database Instance.
+
+USAGE:
+  scw mongodb snapshot restore <snapshot-id ...> [arg=value ...]
+
+ARGS:
+  snapshot-id            UUID of the snapshot
+  instance-name          Name of the new Database Instance
+  node-type              Node type to use for the new Database Instance
+  node-number            Number of nodes to use for the new Database Instance
+  [volume.volume-type]   Type of volume where data is stored (unknown_type | sbs_5k | sbs_15k)
+  [region=fr-par]        Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+
+FLAGS:
+  -h, --help   help for restore
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

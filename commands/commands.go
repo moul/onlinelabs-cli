@@ -37,6 +37,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/login"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/marketplace/v2"
 	mnq "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mnq/v1beta1"
+	mongodb "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mongodb/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/object/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/rdb/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/redis/v1"
@@ -106,6 +107,7 @@ func GetCommands() *core.Commands {
 		serverless_sqldb.GetCommands(),
 		edgeservices.GetCommands(),
 		login.GetCommands(),
+		mongodb.GetCommands(),
 	)
 
 	if beta {

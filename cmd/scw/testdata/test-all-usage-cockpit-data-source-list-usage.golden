@@ -10,7 +10,7 @@ ARGS:
   [order-by]        Sort order for data sources in the response (created_at_asc | created_at_desc | name_asc | name_desc | type_asc | type_desc)
   [project-id]      Project ID to use. If none is passed the default project ID will be used
   [origin]          Origin to filter for, only data sources with matching origin will be returned (unknown_origin | scaleway | external)
-  [types.{index}]   Types to filter for, only data sources with matching types will be returned (unknown_type | metrics | logs | traces | alerts)
+  [types.{index}]   Types to filter for, only data sources with matching types will be returned (unknown_type | metrics | logs | traces)
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 
 FLAGS:

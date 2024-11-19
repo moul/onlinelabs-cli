@@ -652,12 +652,6 @@ func instanceServerUpdate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "bootscript",
-				Required:   false,
-				Deprecated: true,
-				Positional: false,
-			},
-			{
 				Name:       "dynamic-ip-required",
 				Required:   false,
 				Deprecated: false,
@@ -1116,13 +1110,6 @@ func instanceImageCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{"unknown_arch", "x86_64", "arm", "arm64"},
-			},
-			{
-				Name:       "default-bootscript",
-				Short:      `Default bootscript of the image`,
-				Required:   false,
-				Deprecated: true,
-				Positional: false,
 			},
 			{
 				Name:       "extra-volumes.{key}.id",
@@ -1618,7 +1605,7 @@ func instanceSnapshotDelete() *core.Command {
 func instanceSnapshotExport() *core.Command {
 	return &core.Command{
 		Short:     `Export a snapshot`,
-		Long:      `Export a snapshot to a specified S3 bucket in the same region.`,
+		Long:      `Export a snapshot to a specified Object Storage bucket in the same region.`,
 		Namespace: "instance",
 		Resource:  "snapshot",
 		Verb:      "export",
@@ -1627,14 +1614,14 @@ func instanceSnapshotExport() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "bucket",
-				Short:      `S3 bucket name`,
+				Short:      `Object Storage bucket name`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "key",
-				Short:      `S3 object key`,
+				Short:      `Object key`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1658,7 +1645,7 @@ func instanceSnapshotExport() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Export a snapshot to an S3 bucket",
+				Short:    "Export a snapshot to an Object Storage bucket",
 				ArgsJSON: `{"bucket":"my-bucket","key":"my-qcow2-file-name","snapshot_id":"11111111-1111-1111-1111-111111111111","zone":"fr-par-1"}`,
 			},
 		},

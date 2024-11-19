@@ -432,12 +432,13 @@ func cockpitProductDashboardsGet() *core.Command {
 
 func cockpitPlanList() *core.Command {
 	return &core.Command{
-		Short:     `List plan types`,
-		Long:      `Retrieve a list of available pricing plan types.`,
+		Short: `List plan types`,
+		Long: `Retrieve a list of available pricing plan types.
+Deprecated, retention is now managed at the data source level.`,
 		Namespace: "cockpit",
 		Resource:  "plan",
 		Verb:      "list",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(cockpit.GlobalAPIListPlansRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -466,12 +467,13 @@ func cockpitPlanList() *core.Command {
 
 func cockpitPlanSelect() *core.Command {
 	return &core.Command{
-		Short:     `Apply a pricing plan`,
-		Long:      `Apply a pricing plan on a given Project. You must specify the ID of the pricing plan type. Note that you will be billed for the plan you apply.`,
+		Short: `Apply a pricing plan`,
+		Long: `Apply a pricing plan on a given Project. You must specify the ID of the pricing plan type. Note that you will be billed for the plan you apply.
+Deprecated, retention is now managed at the data source level.`,
 		Namespace: "cockpit",
 		Resource:  "plan",
 		Verb:      "select",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(cockpit.GlobalAPISelectPlanRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
@@ -497,12 +499,13 @@ func cockpitPlanSelect() *core.Command {
 
 func cockpitPlanGet() *core.Command {
 	return &core.Command{
-		Short:     `Get current plan`,
-		Long:      `Retrieve a pricing plan for the given Project, specified by the ID of the Project.`,
+		Short: `Get current plan`,
+		Long: `Retrieve a pricing plan for the given Project, specified by the ID of the Project.
+Deprecated, retention is now managed at the data source level.`,
 		Namespace: "cockpit",
 		Resource:  "plan",
 		Verb:      "get",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(cockpit.GlobalAPIGetCurrentPlanRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
@@ -546,7 +549,14 @@ The name of the data source will then be used as reference to name the associate
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_type", "metrics", "logs", "traces", "alerts"},
+				EnumValues: []string{"unknown_type", "metrics", "logs", "traces"},
+			},
+			{
+				Name:       "retention-days",
+				Short:      `BETA - Duration for which the data will be retained in the data source`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
@@ -661,7 +671,7 @@ You can list data sources by Project, type and origin.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"unknown_type", "metrics", "logs", "traces", "alerts"},
+				EnumValues: []string{"unknown_type", "metrics", "logs", "traces"},
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw, scw.Region(core.AllLocalities)),
 		},
@@ -705,6 +715,13 @@ func cockpitDataSourceUpdate() *core.Command {
 			{
 				Name:       "name",
 				Short:      `Updated name of the data source`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "retention-days",
+				Short:      `BETA - Duration for which the data will be retained in the data source`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

@@ -10,6 +10,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/human"
+	block "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -246,6 +247,7 @@ func imageDeleteBuilder(c *core.Command) *core.Command {
 		args := argsI.(*customDeleteImageRequest)
 
 		api := instance.NewAPI(core.ExtractClient(ctx))
+		blockAPI := block.NewAPI(core.ExtractClient(ctx))
 
 		// If we want to delete snapshot we must GET image before we delete it
 		image := (*instance.Image)(nil)
@@ -266,21 +268,49 @@ func imageDeleteBuilder(c *core.Command) *core.Command {
 			return nil, err
 		}
 
+		type UnknownSnapshot struct {
+			ID   string
+			Type instance.VolumeVolumeType
+		}
+
 		// Once the image is deleted we can delete snapshots.
 		if args.WithSnapshots {
-			snapshotIDs := []string{
-				image.RootVolume.ID,
+			snapshots := []UnknownSnapshot{
+				{
+					ID:   image.RootVolume.ID,
+					Type: image.RootVolume.VolumeType,
+				},
 			}
-			for _, snapshot := range image.ExtraVolumes {
-				snapshotIDs = append(snapshotIDs, snapshot.ID)
-			}
-			for _, snapshotID := range snapshotIDs {
-				err := api.DeleteSnapshot(&instance.DeleteSnapshotRequest{
-					Zone:       args.Zone,
-					SnapshotID: snapshotID,
+			for _, extraVolume := range image.ExtraVolumes {
+				snapshots = append(snapshots, UnknownSnapshot{
+					ID:   extraVolume.ID,
+					Type: extraVolume.VolumeType,
 				})
-				if err != nil {
-					return nil, err
+			}
+			for _, snapshot := range snapshots {
+				if snapshot.Type == instance.VolumeVolumeTypeSbsSnapshot {
+					_, err := blockAPI.WaitForSnapshot(&block.WaitForSnapshotRequest{
+						SnapshotID: snapshot.ID,
+						Zone:       args.Zone,
+					})
+					if err != nil {
+						return nil, err
+					}
+					err = blockAPI.DeleteSnapshot(&block.DeleteSnapshotRequest{
+						Zone:       args.Zone,
+						SnapshotID: snapshot.ID,
+					})
+					if err != nil {
+						return nil, err
+					}
+				} else {
+					err := api.DeleteSnapshot(&instance.DeleteSnapshotRequest{
+						Zone:       args.Zone,
+						SnapshotID: snapshot.ID,
+					})
+					if err != nil {
+						return nil, err
+					}
 				}
 			}
 		}

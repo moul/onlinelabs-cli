@@ -32,7 +32,7 @@ func Test_ImageCreate(t *testing.T) {
 	t.Run("Use additional snapshots", core.Test(&core.TestConfig{
 		Commands: instance.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecStoreBeforeCmd("Server", "scw instance server create image=ubuntu_focal root-volume=local:10GB additional-volumes.0=local:10GB -w"),
+			core.ExecStoreBeforeCmd("Server", "scw instance server create type=DEV1-S image=ubuntu_focal root-volume=local:10GB additional-volumes.0=local:10GB -w"),
 			core.ExecStoreBeforeCmd("SnapshotA", `scw instance snapshot create -w name=cli-test-image-create-snapshotA volume-id={{ (index .Server.Volumes "0").ID }}`),
 			core.ExecStoreBeforeCmd("SnapshotB", `scw instance snapshot create -w name=cli-test-image-create-snapshotB volume-id={{ (index .Server.Volumes "1").ID }}`),
 		),

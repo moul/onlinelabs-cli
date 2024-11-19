@@ -71,7 +71,8 @@ ServiceURL   -
     "status": "completed",
     "user": "",
     "service_user": "",
-    "service_url": ""
+    "service_url": "",
+    "partitioning_schema": null
   },
   "ping_status": "ping_status_down",
   "options": null,

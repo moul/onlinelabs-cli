@@ -41,5 +41,8 @@ Sandbox         unknown_sandbox
   "region": "fr-par",
   "http_option": "enabled",
   "runtime_message": "",
-  "sandbox": "unknown_sandbox"
+  "sandbox": "unknown_sandbox",
+  "created_at": null,
+  "updated_at": null,
+  "ready_at": null
 }

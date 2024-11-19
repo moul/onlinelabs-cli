@@ -18,6 +18,9 @@ EXAMPLES:
   Create an instance with 2 local volumes (10GB and 10GB)
     scw instance server create image=ubuntu_focal root-volume=local:10GB additional-volumes.0=local:10GB
 
+  Create an instance with a SBS root volume (100GB and 15000 iops)
+    scw instance server create image=ubuntu_focal root-volume=sbs:100GB:15000
+
   Create an instance with volumes from snapshots
     scw instance server create image=ubuntu_focal root-volume=local:<snapshot_id> additional-volumes.0=block:<snapshot_id>
 
@@ -33,11 +36,12 @@ EXAMPLES:
 
 ARGS:
   image=ubuntu_jammy                       Image ID or label of the server
-  type=DEV1-S                              Server commercial type (help: https://www.scaleway.com/en/docs/compute/instances/reference-content/choosing-instance-type/)
+  type                                     Server commercial type (help: https://www.scaleway.com/en/docs/compute/instances/reference-content/choosing-instance-type/)
   [name=<generated>]                       Server name
   [root-volume]                            Local root volume of the server
   [additional-volumes.{index}]             Additional local and block volumes attached to your server
-  [ip=new]                                 Either an IP, an IP ID, 'new' to create a new IP, 'dynamic' to use a dynamic IP or 'none' for no public IP (new | dynamic | none | <id> | <address>)
+  [ip=new]                                 Either an IP, an IP ID, ('new', 'ipv4', 'ipv6' or 'both') to create new IPs, 'dynamic' to use a dynamic IP or 'none' for no public IP (new | ipv4 | ipv6 | both | dynamic | none | <id> | <address>)
+  [dynamic-ip-required=true]               Define if a dynamic IPv4 is required for the Instance. If server has no IPv4, a dynamic one will be allocated.
   [tags.{index}]                           Server tags
   [ipv6]                                   Enable IPv6, to be used with routed-ip-enabled=false
   [stopped]                                Do not start server after its creation
@@ -45,7 +49,6 @@ ARGS:
   [placement-group-id]                     The placement group ID in which the server has to be created
   [cloud-init]                             The cloud-init script to use (Support file loading with @/path/to/file)
   [boot-type=local]                        The boot type to use, if empty the local boot will be used. Will be overwritten to bootscript if bootscript-id is set. (local | bootscript | rescue)
-  [routed-ip-enabled]                      Enable routed IP support
   [admin-password-encryption-ssh-key-id]   ID of the IAM SSH Key used to encrypt generated admin password. Required when creating a windows server.
   [project-id]                             Project ID to use. If none is passed the default project ID will be used
   [zone=fr-par-1]                          Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3)

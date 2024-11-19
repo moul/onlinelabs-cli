@@ -821,15 +821,20 @@ func serverDeleteCommand() *core.Command {
 				return nil, err
 			}
 
-			if deleteServerArgs.WithIP && server.Server.PublicIP != nil && !server.Server.PublicIP.Dynamic {
-				err = api.DeleteIP(&instance.DeleteIPRequest{
-					Zone: deleteServerArgs.Zone,
-					IP:   server.Server.PublicIP.ID,
-				})
-				if err != nil {
-					return nil, err
+			if deleteServerArgs.WithIP && server.Server.PublicIPs != nil {
+				for _, ip := range server.Server.PublicIPs {
+					if ip.Dynamic {
+						continue
+					}
+					err = api.DeleteIP(&instance.DeleteIPRequest{
+						Zone: deleteServerArgs.Zone,
+						IP:   ip.ID,
+					})
+					if err != nil {
+						return nil, err
+					}
+					_, _ = interactive.Printf("successfully deleted ip %s\n", ip.Address.String())
 				}
-				_, _ = interactive.Printf("successfully deleted ip %s\n", server.Server.PublicIP.Address.String())
 			}
 
 			deletedVolumeMessages := [][2]string(nil)

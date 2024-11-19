@@ -47,7 +47,6 @@ PublicIPs.0.State             attached
 MacAddress                    de:00:00:40:b0:af
 ModificationDate              few seconds ago
 State                         archived
-Bootscript                    x86_64 mainline 4.4.230 rev1
 BootType                      local
 Volumes.0.ID                  08424d6f-cf09-4498-94b5-042ef6eb38f1
 Volumes.0.Name                Ubuntu Jammy GPU OS 12 passthrough
@@ -152,20 +151,6 @@ Zone                          fr-par-2
   "state": "stopped",
   "location": null,
   "ipv6": null,
-  "bootscript": {
-    "bootcmdargs": "LINUX_COMMON scaleway boot=local nbd.max_part=16",
-    "default": true,
-    "dtb": "",
-    "id": "e6a56379-9ef4-48d4-a1d2-12b475e0fed8",
-    "initrd": "http://10.197.3.9/initrd/initrd-Linux-x86_64-v3.14.6.gz",
-    "kernel": "http://10.197.3.9/kernel/x86_64-mainline-lts-4.4-4.4.230-rev1/vmlinuz-4.4.230",
-    "organization": "11111111-1111-4111-8111-111111111111",
-    "project": "11111111-1111-4111-8111-111111111111",
-    "public": true,
-    "title": "x86_64 mainline 4.4.230 rev1",
-    "architecture": "x86_64",
-    "zone": "fr-par-2"
-  },
   "boot_type": "local",
   "volumes": {
     "0": {

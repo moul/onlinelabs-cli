@@ -13,7 +13,6 @@ AVAILABLE COMMANDS:
   list                    List Clusters
   list-available-types    List available cluster types for a cluster
   list-available-versions List available versions for a Cluster
-  migrate-to-routed-ips   Migrate a cluster to Routed IPs
   migrate-to-sbs-csi      Migrate a cluster to SBS CSI
   reset-admin-token       Reset the admin token of a Cluster
   set-type                Change the Cluster type

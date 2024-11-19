@@ -29,6 +29,7 @@ AVAILABLE COMMANDS:
   lb            This API allows you to manage your Scaleway Load Balancer services
   marketplace   This API allows you to find available images for use when launching a Scaleway Instance
   mnq           These APIs allow you to manage your Messaging and Queuing NATS, SQS and SNS services
+  mongodb       This API allows you to manage your Managed Databases for MongoDB®
   object        Object-storage utils
   rdb           This API allows you to manage your Managed Databases for PostgreSQL and MySQL
   redis         This API allows you to manage your Managed Databases for Redis™

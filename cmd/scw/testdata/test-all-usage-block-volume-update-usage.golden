@@ -12,7 +12,7 @@ ARGS:
   [size]            Optional field for increasing the size of a volume (size must be equal or larger than the current one)
   [tags.{index}]    List of tags assigned to the volume
   [perf-iops]       The maximum IO/s expected, according to the different options available in stock (`5000 | 15000`)
-  [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-3)
+  [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3)
 
 FLAGS:
   -h, --help   help for update

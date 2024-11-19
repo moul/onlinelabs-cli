@@ -71,7 +71,7 @@ scw container container create [arg=value ...]
 | privacy | One of: `unknown_privacy`, `public`, `private` | Privacy setting of the container |
 | description |  | Description of the container |
 | registry-image |  | Name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag"). |
-| max-concurrency |  | Number of maximum concurrent executions of the container |
+| ~~max-concurrency~~ | Deprecated | Number of maximum concurrent executions of the container |
 | protocol | One of: `unknown_protocol`, `http1`, `h2c` | Protocol the container uses |
 | port |  | Port the container listens on |
 | secret-environment-variables.{index}.key |  |  |
@@ -79,6 +79,12 @@ scw container container create [arg=value ...]
 | http-option | Default: `enabled`<br />One of: `unknown_http_option`, `enabled`, `redirected` | Configure how HTTP and HTTPS requests are handled |
 | sandbox | One of: `unknown_sandbox`, `v1`, `v2` | Execution environment of the container |
 | local-storage-limit |  | Local storage limit of the container (in MB) |
+| scaling-option.concurrent-requests-threshold |  |  |
+| scaling-option.cpu-usage-threshold |  |  |
+| scaling-option.memory-usage-threshold |  |  |
+| health-check.http.path |  | Path to use for the HTTP health check. |
+| health-check.failure-threshold |  | Number of consecutive health check failures before considering the container unhealthy. |
+| health-check.interval |  | Period between health checks. |
 | deploy | Default: `true` | Deploy container after creation |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
@@ -194,14 +200,20 @@ scw container container update <container-id ...> [arg=value ...]
 | privacy | One of: `unknown_privacy`, `public`, `private` | Privacy settings of the container |
 | description |  | Description of the container |
 | registry-image |  | Name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag"). |
-| max-concurrency |  | Number of maximum concurrent executions of the container |
+| ~~max-concurrency~~ | Deprecated | Number of maximum concurrent executions of the container |
 | protocol | One of: `unknown_protocol`, `http1`, `h2c` |  |
 | port |  |  |
 | secret-environment-variables.{index}.key |  |  |
 | secret-environment-variables.{index}.value |  |  |
-| http-option | Default: `enabled`<br />One of: `unknown_http_option`, `enabled`, `redirected` | Configure how HTTP and HTTPS requests are handled |
+| http-option | One of: `unknown_http_option`, `enabled`, `redirected` | Configure how HTTP and HTTPS requests are handled |
 | sandbox | One of: `unknown_sandbox`, `v1`, `v2` | Execution environment of the container |
 | local-storage-limit |  | Local storage limit of the container (in MB) |
+| scaling-option.concurrent-requests-threshold |  |  |
+| scaling-option.cpu-usage-threshold |  |  |
+| scaling-option.memory-usage-threshold |  |  |
+| health-check.http.path |  | Path to use for the HTTP health check. |
+| health-check.failure-threshold |  | Number of consecutive health check failures before considering the container unhealthy. |
+| health-check.interval |  | Period between health checks. |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -462,6 +474,7 @@ scw container namespace create [arg=value ...]
 | description |  | Description of the namespace to create |
 | secret-environment-variables.{index}.key |  |  |
 | secret-environment-variables.{index}.value |  |  |
+| tags.{index} |  | [ALPHA] Tags of the Serverless Container Namespace |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -549,6 +562,7 @@ scw container namespace update <namespace-id ...> [arg=value ...]
 | description |  | Description of the namespace to update |
 | secret-environment-variables.{index}.key |  |  |
 | secret-environment-variables.{index}.value |  |  |
+| tags.{index} |  | [ALPHA] Tags of the Serverless Container Namespace |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 

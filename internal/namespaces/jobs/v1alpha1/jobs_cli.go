@@ -22,12 +22,18 @@ func GetGeneratedCommands() *core.Commands {
 		jobsRoot(),
 		jobsRun(),
 		jobsDefinition(),
+		jobsSecret(),
 		jobsDefinitionCreate(),
 		jobsDefinitionGet(),
 		jobsDefinitionList(),
 		jobsDefinitionUpdate(),
 		jobsDefinitionDelete(),
 		jobsDefinitionStart(),
+		jobsSecretCreate(),
+		jobsSecretGet(),
+		jobsSecretList(),
+		jobsSecretUpdate(),
+		jobsSecretDelete(),
 		jobsRunGet(),
 		jobsRunStop(),
 		jobsRunList(),
@@ -56,6 +62,15 @@ func jobsDefinition() *core.Command {
 		Long:      ``,
 		Namespace: "jobs",
 		Resource:  "definition",
+	}
+}
+
+func jobsSecret() *core.Command {
+	return &core.Command{
+		Short:     ``,
+		Long:      ``,
+		Namespace: "jobs",
+		Resource:  "secret",
 	}
 }
 
@@ -428,6 +443,228 @@ func jobsDefinitionStart() *core.Command {
 			api := jobs.NewAPI(client)
 			return api.StartJobDefinition(request)
 
+		},
+	}
+}
+
+func jobsSecretCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create a secret reference within a job definition`,
+		Long:      `Create a secret reference within a job definition.`,
+		Namespace: "jobs",
+		Resource:  "secret",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(jobs.CreateJobDefinitionSecretsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "job-definition-id",
+				Short:      `UUID of the job definition`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "secrets.{index}.secret-manager-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "secrets.{index}.secret-manager-version",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "secrets.{index}.path",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "secrets.{index}.env-var-name",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*jobs.CreateJobDefinitionSecretsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := jobs.NewAPI(client)
+			return api.CreateJobDefinitionSecrets(request)
+
+		},
+	}
+}
+
+func jobsSecretGet() *core.Command {
+	return &core.Command{
+		Short:     `Get a secret references within a job definition`,
+		Long:      `Get a secret references within a job definition.`,
+		Namespace: "jobs",
+		Resource:  "secret",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(jobs.GetJobDefinitionSecretRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "job-definition-id",
+				Short:      `UUID of the job definition`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "secret-id",
+				Short:      `UUID of the secret reference within the job`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*jobs.GetJobDefinitionSecretRequest)
+
+			client := core.ExtractClient(ctx)
+			api := jobs.NewAPI(client)
+			return api.GetJobDefinitionSecret(request)
+
+		},
+	}
+}
+
+func jobsSecretList() *core.Command {
+	return &core.Command{
+		Short:     `List secrets references within a job definition`,
+		Long:      `List secrets references within a job definition.`,
+		Namespace: "jobs",
+		Resource:  "secret",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(jobs.ListJobDefinitionSecretsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "job-definition-id",
+				Short:      `UUID of the job definition`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*jobs.ListJobDefinitionSecretsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := jobs.NewAPI(client)
+			return api.ListJobDefinitionSecrets(request)
+
+		},
+	}
+}
+
+func jobsSecretUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update a secret reference within a job definition`,
+		Long:      `Update a secret reference within a job definition.`,
+		Namespace: "jobs",
+		Resource:  "secret",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(jobs.UpdateJobDefinitionSecretRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "job-definition-id",
+				Short:      `UUID of the job definition`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "secret-id",
+				Short:      `UUID of the secret reference within the job`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "secret-manager-version",
+				Short:      `Version of the secret in Secret Manager`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "path",
+				Short:      `Path of the secret to mount inside the job (either ` + "`" + `path` + "`" + ` or ` + "`" + `env_var_name` + "`" + ` must be set)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "env-var-name",
+				Short:      `Environment variable name used to expose the secret inside the job (either ` + "`" + `path` + "`" + ` or ` + "`" + `env_var_name` + "`" + ` must be set)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*jobs.UpdateJobDefinitionSecretRequest)
+
+			client := core.ExtractClient(ctx)
+			api := jobs.NewAPI(client)
+			return api.UpdateJobDefinitionSecret(request)
+
+		},
+	}
+}
+
+func jobsSecretDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete a secret reference within a job definition`,
+		Long:      `Delete a secret reference within a job definition.`,
+		Namespace: "jobs",
+		Resource:  "secret",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(jobs.DeleteJobDefinitionSecretRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "job-definition-id",
+				Short:      `UUID of the job definition`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "secret-id",
+				Short:      `UUID of the secret reference within the job`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*jobs.DeleteJobDefinitionSecretRequest)
+
+			client := core.ExtractClient(ctx)
+			api := jobs.NewAPI(client)
+			e = api.DeleteJobDefinitionSecret(request)
+			if e != nil {
+				return nil, e
+			}
+			return &core.SuccessResult{
+				Resource: "secret",
+				Verb:     "delete",
+			}, nil
 		},
 	}
 }

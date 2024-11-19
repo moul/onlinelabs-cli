@@ -226,10 +226,12 @@ func TestInit(t *testing.T) {
 
 func TestInit_Prompt(t *testing.T) {
 	promptResponse := []string{
-		"secret-key",
-		"access-key",
-		"organization-id",
-		" ",
+		"secret-key",      // Secret key prompt, should be replaced in BeforeFunc.
+		"access-key",      // Access key prompt, should be replaced in BeforeFunc.
+		"organization-id", // Organization prompt, should be replaced in BeforeFunc.
+		" ",               // default-project-id list prompt, space is validation, it will pick default organization project.
+		"",                // Telemetry prompt, use default value.
+		"y",               // Autocomplete prompt, enable it but the tests should override a SHELL variable to avoid breaking because of local configuration.
 	}
 
 	t.Run("Simple", core.Test(&core.TestConfig{
@@ -266,6 +268,9 @@ func TestInit_Prompt(t *testing.T) {
 				assert.Equal(t, *config.DefaultProjectID, *config.DefaultProjectID)
 			}),
 		),
+		OverrideEnv: map[string]string{
+			"SHELL": "/bin/bash",
+		},
 		PromptResponseMocks: promptResponse,
 	}))
 }

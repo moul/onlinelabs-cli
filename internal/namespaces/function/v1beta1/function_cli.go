@@ -302,6 +302,13 @@ func functionNamespaceCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "tags.{index}",
+				Short:      `[ALPHA] Tags of the Serverless Function Namespace`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
 		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
@@ -354,6 +361,13 @@ func functionNamespaceUpdate() *core.Command {
 			},
 			{
 				Name:       "secret-environment-variables.{index}.value",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `[ALPHA] Tags of the Serverless Function Namespace`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -738,7 +752,6 @@ func functionFunctionUpdate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				Default:    core.DefaultValueSetter("enabled"),
 				EnumValues: []string{"unknown_http_option", "enabled", "redirected"},
 			},
 			{

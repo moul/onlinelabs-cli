@@ -36,7 +36,6 @@ func GetGeneratedCommands() *core.Commands {
 		k8sClusterListAvailableVersions(),
 		k8sClusterListAvailableTypes(),
 		k8sClusterResetAdminToken(),
-		k8sClusterMigrateToRoutedIPs(),
 		k8sClusterMigrateToSbsCsi(),
 		k8sPoolList(),
 		k8sPoolCreate(),
@@ -419,7 +418,7 @@ func k8sClusterCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"default_volume_type", "l_ssd", "b_ssd"},
+				EnumValues: []string{"default_volume_type", "l_ssd", "b_ssd", "sbs_5k", "sbs_15k"},
 			},
 			{
 				Name:       "pools.{index}.root-volume-size",
@@ -1161,42 +1160,6 @@ func k8sClusterResetAdminToken() *core.Command {
 	}
 }
 
-func k8sClusterMigrateToRoutedIPs() *core.Command {
-	return &core.Command{
-		Short:     `Migrate a cluster to Routed IPs`,
-		Long:      `Migrate the nodes of an existing cluster to Routed IPs and enable Routed IPs for all future nodes.`,
-		Namespace: "k8s",
-		Resource:  "cluster",
-		Verb:      "migrate-to-routed-ips",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.MigrateClusterToRoutedIPsRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "cluster-id",
-				Short:      `Cluster ID for which the routed ip will be enabled for the nodes`,
-				Required:   true,
-				Deprecated: false,
-				Positional: true,
-			},
-			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*k8s.MigrateClusterToRoutedIPsRequest)
-
-			client := core.ExtractClient(ctx)
-			api := k8s.NewAPI(client)
-			return api.MigrateClusterToRoutedIPs(request)
-
-		},
-		Examples: []*core.Example{
-			{
-				Short: "Migrate a cluster to Routed IPs",
-				Raw:   `scw k8s cluster migrate-to-routed-ips 11111111-1111-1111-111111111111`,
-			},
-		},
-	}
-}
-
 func k8sClusterMigrateToSbsCsi() *core.Command {
 	return &core.Command{
 		Short:     `Migrate a cluster to SBS CSI`,
@@ -1493,7 +1456,7 @@ func k8sPoolCreate() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{"default_volume_type", "l_ssd", "b_ssd"},
+				EnumValues: []string{"default_volume_type", "l_ssd", "b_ssd", "sbs_5k", "sbs_15k"},
 			},
 			{
 				Name:       "root-volume-size",

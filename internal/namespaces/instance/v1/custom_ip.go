@@ -2,6 +2,7 @@ package instance
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"net"
 	"reflect"
@@ -189,4 +190,52 @@ func ipDetachCommand() *core.Command {
 			},
 		},
 	}
+}
+
+func cleanIPs(api *instance.API, zone scw.Zone, ipIDs []string) []error {
+	errs := []error(nil)
+	for _, ipID := range ipIDs {
+		err := api.DeleteIP(&instance.DeleteIPRequest{
+			Zone: zone,
+			IP:   ipID,
+		})
+		if err != nil {
+			errs = append(errs, err)
+		}
+	}
+
+	return errs
+}
+
+func ipIDsFromResponses(resps []*instance.CreateIPResponse) []string {
+	IDs := make([]string, 0, len(resps))
+	for _, resp := range resps {
+		IDs = append(IDs, resp.IP.ID)
+	}
+
+	return IDs
+}
+
+// createIPs will create multiple IPs, if one creation fails, all created IPs will be cleaned up.
+func createIPs(api *instance.API, reqs []*instance.CreateIPRequest, opts ...scw.RequestOption) ([]string, error) {
+	resps := make([]*instance.CreateIPResponse, 0, len(reqs))
+	for _, req := range reqs {
+		resp, err := api.CreateIP(req, opts...)
+		if err != nil {
+			if len(resps) > 0 {
+				errs := cleanIPs(api, resps[0].IP.Zone, ipIDsFromResponses(resps))
+				if len(errs) > 0 {
+					cleanErr := errors.Join(errs...)
+					cleanErr = fmt.Errorf("failed to clean IPs after creation failure: %w", cleanErr)
+					err = fmt.Errorf("%s: %w", cleanErr, err)
+				}
+			}
+
+			return nil, err
+		}
+
+		resps = append(resps, resp)
+	}
+
+	return ipIDsFromResponses(resps), nil
 }

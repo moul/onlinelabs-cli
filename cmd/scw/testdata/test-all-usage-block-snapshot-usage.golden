@@ -6,12 +6,13 @@ USAGE:
   scw block snapshot <command>
 
 AVAILABLE COMMANDS:
-  create                   Create a snapshot of a volume
-  delete                   Delete a snapshot
-  export-to-object-storage Export a snapshot to a Scaleway Object Storage bucket
-  get                      Get a snapshot
-  list                     List all snapshots
-  update                   Update a snapshot
+  create                     Create a snapshot of a volume
+  delete                     Delete a snapshot
+  export-to-object-storage   Export a snapshot to a Scaleway Object Storage bucket
+  get                        Get a snapshot
+  import-from-object-storage Import a snapshot from a Scaleway Object Storage bucket
+  list                       List all snapshots
+  update                     Update a snapshot
 
 FLAGS:
   -h, --help   help for snapshot

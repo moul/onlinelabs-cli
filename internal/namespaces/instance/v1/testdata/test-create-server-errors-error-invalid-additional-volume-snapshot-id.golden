@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Snapshot 29da9ad9-e759-4a56-82c8-f0607f93055c does not exist
+Failed to build volume template: snapshot 29da9ad9-e759-4a56-82c8-f0607f93055c does not exist
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
-  "error": "snapshot 29da9ad9-e759-4a56-82c8-f0607f93055c does not exist"
+  "error": "failed to build volume template: snapshot 29da9ad9-e759-4a56-82c8-f0607f93055c does not exist"
 }

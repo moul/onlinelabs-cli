@@ -27,21 +27,21 @@ func deleteLB() core.AfterFunc {
 func createInstance() core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(
 		"Instance",
-		"scw instance server create stopped=true image=ubuntu_focal",
+		"scw instance server create type=DEV1-S stopped=true image=ubuntu_focal",
 	)
 }
 
 func createRunningInstance() core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(
 		"Instance",
-		"scw instance server create image=ubuntu_bionic -w",
+		"scw instance server create type=DEV1-S image=ubuntu_bionic -w",
 	)
 }
 
 func createRunningInstanceWithTag() core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(
 		"Instance",
-		"scw instance server create image=ubuntu_bionic tags.0=foo -w",
+		"scw instance server create type=DEV1-S image=ubuntu_bionic tags.0=foo -w",
 	)
 }
 

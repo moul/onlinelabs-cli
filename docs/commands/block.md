@@ -7,6 +7,7 @@ This API allows you to manage your Block Storage volumes.
   - [Delete a snapshot](#delete-a-snapshot)
   - [Export a snapshot to a Scaleway Object Storage bucket](#export-a-snapshot-to-a-scaleway-object-storage-bucket)
   - [Get a snapshot](#get-a-snapshot)
+  - [Import a snapshot from a Scaleway Object Storage bucket](#import-a-snapshot-from-a-scaleway-object-storage-bucket)
   - [List all snapshots](#list-all-snapshots)
   - [Update a snapshot](#update-a-snapshot)
 - [A Block Storage volume is a logical storage drive on a network-connected storage system. It is exposed to Instances as if it were a physical disk, and can be attached and detached like a hard drive. Several Block volumes can be attached to one Instance at a time](#a-block-storage-volume-is-a-logical-storage-drive-on-a-network-connected-storage-system.-it-is-exposed-to-instances-as-if-it-were-a-physical-disk,-and-can-be-attached-and-detached-like-a-hard-drive.-several-block-volumes-can-be-attached-to-one-instance-at-a-time)
@@ -41,10 +42,10 @@ scw block snapshot create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | volume-id |  | UUID of the volume to snapshot |
-| name |  | Name of the snapshot |
+| name | Default: `<generated>` | Name of the snapshot |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | tags.{index} |  | List of tags assigned to the snapshot |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -55,7 +56,7 @@ You must specify the `snapshot_id` of the snapshot you want to delete. The snaps
 **Usage:**
 
 ```
-scw block snapshot delete [arg=value ...]
+scw block snapshot delete <snapshot-id ...> [arg=value ...]
 ```
 
 
@@ -64,7 +65,7 @@ scw block snapshot delete [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | snapshot-id | Required | UUID of the snapshot |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -87,7 +88,7 @@ scw block snapshot export-to-object-storage [arg=value ...]
 | snapshot-id | Required | UUID of the snapshot |
 | bucket |  | Scaleway Object Storage bucket where the object is stored |
 | key |  | The object key inside the given bucket |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -107,7 +108,33 @@ scw block snapshot get <snapshot-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | snapshot-id | Required | UUID of the snapshot |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Import a snapshot from a Scaleway Object Storage bucket
+
+The bucket must contain a QCOW2 image.
+The bucket can be imported into any Availability Zone as long as it is in the same region as the bucket.
+
+**Usage:**
+
+```
+scw block snapshot import-from-object-storage [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| bucket |  | Scaleway Object Storage bucket where the object is stored |
+| key |  | The object key inside the given bucket |
+| name |  | Name of the snapshot |
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| tags.{index} |  | List of tags assigned to the snapshot |
+| size |  | Size of the snapshot |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -131,7 +158,7 @@ scw block snapshot list [arg=value ...]
 | volume-id |  | Filter snapshots by the ID of the original volume |
 | name |  | Filter snapshots by their names |
 | organization-id |  | Filter by Organization ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -153,7 +180,7 @@ scw block snapshot update <snapshot-id ...> [arg=value ...]
 | snapshot-id | Required | UUID of the snapshot |
 | name |  | When defined, is the name of the snapshot |
 | tags.{index} |  | List of tags assigned to the snapshot |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -178,14 +205,14 @@ scw block volume create [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| name | Required | Name of the volume |
+| name | Required<br />Default: `<generated>` | Name of the volume |
 | perf-iops | Required | The maximum IO/s expected, according to the different options available in stock (`5000 | 15000`) |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | from-empty.size |  | Volume size in bytes, with a granularity of 1 GB (10^9 bytes) |
 | from-snapshot.size |  | Volume size in bytes, with a granularity of 1 GB (10^9 bytes) |
 | from-snapshot.snapshot-id |  | Source snapshot from which volume will be created |
 | tags.{index} |  | List of tags assigned to the volume |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -196,7 +223,7 @@ You must specify the `volume_id` of the volume you want to delete. The volume mu
 **Usage:**
 
 ```
-scw block volume delete [arg=value ...]
+scw block volume delete <volume-id ...> [arg=value ...]
 ```
 
 
@@ -205,7 +232,7 @@ scw block volume delete [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | volume-id | Required | UUID of the volume |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -225,7 +252,7 @@ scw block volume get <volume-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | volume-id | Required | UUID of the volume |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -248,8 +275,9 @@ scw block volume list [arg=value ...]
 | project-id |  | Filter by Project ID |
 | name |  | Filter the return volumes by their names |
 | product-resource-id |  | Filter by a product resource ID linked to this volume (such as an Instance ID) |
+| tags.{index} |  | Filter by tags. Only volumes with one or more matching tags will be returned |
 | organization-id |  | Filter by Organization ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -274,7 +302,7 @@ scw block volume update <volume-id ...> [arg=value ...]
 | size |  | Optional field for increasing the size of a volume (size must be equal or larger than the current one) |
 | tags.{index} |  | List of tags assigned to the volume |
 | perf-iops |  | The maximum IO/s expected, according to the different options available in stock (`5000 | 15000`) |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -298,7 +326,7 @@ scw block volume-type list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 

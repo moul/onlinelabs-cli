@@ -12,6 +12,7 @@ ARGS:
   [description]                                  Description of the namespace
   [secret-environment-variables.{index}.key]     
   [secret-environment-variables.{index}.value]   
+  [tags.{index}]                                 [ALPHA] Tags of the Serverless Function Namespace
   [region=fr-par]                                Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

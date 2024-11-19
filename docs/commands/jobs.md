@@ -14,6 +14,12 @@ This API allows you to manage your Serverless Jobs.
   - [List all job runs with filters](#list-all-job-runs-with-filters)
   - [Stop a job run by its unique identifier](#stop-a-job-run-by-its-unique-identifier)
   - [Wait for a job run to reach a stable state](#wait-for-a-job-run-to-reach-a-stable-state)
+- [](#)
+  - [Create a secret reference within a job definition](#create-a-secret-reference-within-a-job-definition)
+  - [Delete a secret reference within a job definition](#delete-a-secret-reference-within-a-job-definition)
+  - [Get a secret references within a job definition](#get-a-secret-references-within-a-job-definition)
+  - [List secrets references within a job definition](#list-secrets-references-within-a-job-definition)
+  - [Update a secret reference within a job definition](#update-a-secret-reference-within-a-job-definition)
 
   
 ## 
@@ -252,6 +258,121 @@ scw jobs run wait <job-run-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | job-run-id | Required |  |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+## 
+
+
+
+
+### Create a secret reference within a job definition
+
+Create a secret reference within a job definition.
+
+**Usage:**
+
+```
+scw jobs secret create [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| job-definition-id | Required | UUID of the job definition |
+| secrets.{index}.secret-manager-id |  |  |
+| secrets.{index}.secret-manager-version |  |  |
+| secrets.{index}.path |  |  |
+| secrets.{index}.env-var-name |  |  |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Delete a secret reference within a job definition
+
+Delete a secret reference within a job definition.
+
+**Usage:**
+
+```
+scw jobs secret delete [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| job-definition-id | Required | UUID of the job definition |
+| secret-id | Required | UUID of the secret reference within the job |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Get a secret references within a job definition
+
+Get a secret references within a job definition.
+
+**Usage:**
+
+```
+scw jobs secret get [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| job-definition-id | Required | UUID of the job definition |
+| secret-id | Required | UUID of the secret reference within the job |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### List secrets references within a job definition
+
+List secrets references within a job definition.
+
+**Usage:**
+
+```
+scw jobs secret list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| job-definition-id | Required | UUID of the job definition |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Update a secret reference within a job definition
+
+Update a secret reference within a job definition.
+
+**Usage:**
+
+```
+scw jobs secret update [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| job-definition-id | Required | UUID of the job definition |
+| secret-id | Required | UUID of the secret reference within the job |
+| secret-manager-version |  | Version of the secret in Secret Manager |
+| path |  | Path of the secret to mount inside the job (either `path` or `env_var_name` must be set) |
+| env-var-name |  | Environment variable name used to expose the secret inside the job (either `path` or `env_var_name` must be set) |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 

@@ -177,8 +177,14 @@ Once your image is ready you will be able to create a new server based on this i
 						VolumeType: instance.SnapshotVolumeTypeUnified,
 					}
 				} else {
-					template = &instance.ServerActionRequestVolumeBackupTemplate{
-						VolumeType: instance.SnapshotVolumeType(v.VolumeType),
+					if v.VolumeType == instance.VolumeServerVolumeTypeSbsVolume {
+						template = &instance.ServerActionRequestVolumeBackupTemplate{
+							VolumeType: instance.SnapshotVolumeType("sbs_snapshot"),
+						}
+					} else {
+						template = &instance.ServerActionRequestVolumeBackupTemplate{
+							VolumeType: instance.SnapshotVolumeType(v.VolumeType),
+						}
 					}
 				}
 				req.Volumes[v.ID] = template

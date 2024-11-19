@@ -34,7 +34,7 @@ ARGS:
   [pools.{index}.upgrade-policy.max-unavailable]         The maximum number of nodes that can be not ready at the same time
   [pools.{index}.upgrade-policy.max-surge]               The maximum number of nodes to be created during the upgrade
   [pools.{index}.zone]                                   Zone in which the pool's nodes will be spawned
-  [pools.{index}.root-volume-type]                       Defines the system volume disk type. Two different types of volume (`volume_type`) are provided: `l_ssd` is a local block storage which means your system is stored locally on your node's hypervisor. `b_ssd` is a remote block storage which means your system is stored on a centralized and resilient cluster (default_volume_type | l_ssd | b_ssd)
+  [pools.{index}.root-volume-type]                       Defines the system volume disk type. Two different types of volume (`volume_type`) are provided: `l_ssd` is a local block storage which means your system is stored locally on your node's hypervisor. `b_ssd` is a remote block storage which means your system is stored on a centralized and resilient cluster (default_volume_type | l_ssd | b_ssd | sbs_5k | sbs_15k)
   [pools.{index}.root-volume-size]                       System volume disk size
   [pools.{index}.public-ip-disabled]                     Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway
   [autoscaler-config.scale-down-disabled]                Disable the cluster autoscaler

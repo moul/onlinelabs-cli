@@ -134,7 +134,6 @@ scw instance image create [arg=value ...]
 | name | Default: `<generated>` | Name of the image |
 | snapshot-id | Required | UUID of the snapshot that will be used as root volume in the image |
 | arch | Required<br />One of: `unknown_arch`, `x86_64`, `arm`, `arm64` | Architecture of the image |
-| ~~default-bootscript~~ | Deprecated | Default bootscript of the image |
 | additional-volumes.{index}.id |  | UUID of the snapshot to add |
 | additional-volumes.{index}.name |  | Name of the additional snapshot |
 | additional-volumes.{index}.size |  | Size of the additional snapshot |
@@ -1710,11 +1709,12 @@ scw instance server create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | image | Required<br />Default: `ubuntu_jammy` | Image ID or label of the server |
-| type | Required<br />Default: `DEV1-S` | Server commercial type (help: https://www.scaleway.com/en/docs/compute/instances/reference-content/choosing-instance-type/) |
+| type | Required | Server commercial type (help: https://www.scaleway.com/en/docs/compute/instances/reference-content/choosing-instance-type/) |
 | name | Default: `<generated>` | Server name |
 | root-volume |  | Local root volume of the server |
 | additional-volumes.{index} |  | Additional local and block volumes attached to your server |
-| ip | Default: `new` | Either an IP, an IP ID, 'new' to create a new IP, 'dynamic' to use a dynamic IP or 'none' for no public IP (new | dynamic | none | <id> | <address>) |
+| ip | Default: `new` | Either an IP, an IP ID, ('new', 'ipv4', 'ipv6' or 'both') to create new IPs, 'dynamic' to use a dynamic IP or 'none' for no public IP (new | ipv4 | ipv6 | both | dynamic | none | <id> | <address>) |
+| dynamic-ip-required | Default: `true` | Define if a dynamic IPv4 is required for the Instance. If server has no IPv4, a dynamic one will be allocated. |
 | tags.{index} |  | Server tags |
 | ipv6 |  | Enable IPv6, to be used with routed-ip-enabled=false |
 | stopped |  | Do not start server after its creation |
@@ -1722,7 +1722,6 @@ scw instance server create [arg=value ...]
 | placement-group-id |  | The placement group ID in which the server has to be created |
 | cloud-init |  | The cloud-init script to use |
 | boot-type | Default: `local`<br />One of: `local`, `bootscript`, `rescue` | The boot type to use, if empty the local boot will be used. Will be overwritten to bootscript if bootscript-id is set. |
-| routed-ip-enabled |  | Enable routed IP support |
 | admin-password-encryption-ssh-key-id |  | ID of the IAM SSH Key used to encrypt generated admin password. Required when creating a windows server. |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
@@ -1750,6 +1749,11 @@ scw instance server create image=ubuntu_focal additional-volumes.0=block:50GB ad
 Create an instance with 2 local volumes (10GB and 10GB)
 ```
 scw instance server create image=ubuntu_focal root-volume=local:10GB additional-volumes.0=local:10GB
+```
+
+Create an instance with a SBS root volume (100GB and 15000 iops)
+```
+scw instance server create image=ubuntu_focal root-volume=sbs:100GB:15000
 ```
 
 Create an instance with volumes from snapshots
@@ -2266,7 +2270,6 @@ scw instance server update <server-id ...> [arg=value ...]
 | volumes.{key}.base-snapshot |  | ID of the snapshot on which this volume will be based |
 | volumes.{key}.project |  | Project ID of the volume |
 | volumes.{key}.organization |  | Organization ID of the volume |
-| ~~bootscript~~ | Deprecated |  |
 | dynamic-ip-required |  |  |
 | ~~routed-ip-enabled~~ | Deprecated | True to configure the instance so it uses the new routed IP mode (once this is set to True you cannot set it back to False) |
 | public-ips.{index} |  | A list of reserved IP IDs to attach to the Instance |
@@ -2528,7 +2531,7 @@ scw instance snapshot delete 11111111-1111-1111-1111-111111111111 zone=fr-par-1
 
 ### Export a snapshot
 
-Export a snapshot to a specified S3 bucket in the same region.
+Export a snapshot to a specified Object Storage bucket in the same region.
 
 **Usage:**
 
@@ -2541,8 +2544,8 @@ scw instance snapshot export [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| bucket |  | S3 bucket name |
-| key |  | S3 object key |
+| bucket |  | Object Storage bucket name |
+| key |  | Object key |
 | snapshot-id | Required | Snapshot ID |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
@@ -2550,7 +2553,7 @@ scw instance snapshot export [arg=value ...]
 **Examples:**
 
 
-Export a snapshot to an S3 bucket
+Export a snapshot to an Object Storage bucket
 ```
 scw instance snapshot export zone=fr-par-1 snapshot-id=11111111-1111-1111-1111-111111111111 bucket=my-bucket key=my-qcow2-file-name
 ```

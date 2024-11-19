@@ -40,6 +40,7 @@ func GetGeneratedCommands() *core.Commands {
 		iamUserUpdate(),
 		iamUserDelete(),
 		iamUserCreate(),
+		iamUserUpdatePassword(),
 		iamApplicationList(),
 		iamApplicationCreate(),
 		iamApplicationGet(),
@@ -635,6 +636,13 @@ func iamUserCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "member.send-welcome-email",
+				Short:      `Whether or not to send a welcome email that includes onboarding information.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "member.username",
 				Short:      `The member's username`,
 				Required:   false,
@@ -656,6 +664,49 @@ func iamUserCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 			return api.CreateUser(request)
+
+		},
+	}
+}
+
+func iamUserUpdatePassword() *core.Command {
+	return &core.Command{
+		Short:     `Update an user's password`,
+		Long:      `Update an user's password.`,
+		Namespace: "iam",
+		Resource:  "user",
+		Verb:      "update-password",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iam.UpdateUserPasswordRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "user-id",
+				Short:      `ID of the user to update`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "password",
+				Short:      `The new password`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "send-email",
+				Short:      `Whether or not to send an email alerting the user their password has changed`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+			request := args.(*iam.UpdateUserPasswordRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+			return api.UpdateUserPassword(request)
 
 		},
 	}

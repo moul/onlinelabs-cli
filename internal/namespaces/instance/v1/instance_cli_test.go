@@ -39,20 +39,21 @@ func Test_GetServer(t *testing.T) {
 func Test_CreateVolume(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: instance.GetCommands(),
-		Cmd:      "scw instance volume create name=test size=20G",
+		Cmd:      "scw instance volume create name=test volume-type=b_ssd size=20G",
 		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
+				require.NotNil(t, ctx.Result)
 				assert.Equal(t, "test", ctx.Result.(*instanceSDK.CreateVolumeResponse).Volume.Name)
 			},
-			core.TestCheckExitCode(0),
 		),
 		AfterFunc: core.ExecAfterCmd("scw instance volume delete {{ .CmdResult.Volume.ID }}"),
 	}))
 
 	t.Run("Bad size unit", core.Test(&core.TestConfig{
 		Commands: instance.GetCommands(),
-		Cmd:      "scw instance volume create name=test size=20",
+		Cmd:      "scw instance volume create name=test volume-type=b_ssd size=20",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
@@ -137,7 +138,7 @@ func Test_ServerUpdate(t *testing.T) {
 		Commands: instance.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			createPlacementGroup("PlacementGroup"),
-			core.ExecStoreBeforeCmd("Server", "scw instance server create image=ubuntu-bionic placement-group-id={{ .PlacementGroup.ID }} stopped=true"),
+			core.ExecStoreBeforeCmd("Server", testServerCommand("image=ubuntu-bionic placement-group-id={{ .PlacementGroup.ID }} stopped=true")),
 		),
 		Cmd: `scw instance server update {{ .Server.ID }} placement-group-id=none`,
 		Check: core.TestCheckCombine(
@@ -158,7 +159,7 @@ func Test_ServerUpdate(t *testing.T) {
 		Commands: instance.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			createPlacementGroup("PlacementGroup"),
-			core.ExecStoreBeforeCmd("Server", "scw instance server create image=ubuntu-bionic placement-group-id={{ .PlacementGroup.ID }} stopped=true"),
+			core.ExecStoreBeforeCmd("Server", testServerCommand("image=ubuntu-bionic placement-group-id={{ .PlacementGroup.ID }} stopped=true")),
 		),
 		Cmd: `scw instance server update {{ .Server.ID }} placement-group-id={{ .PlacementGroup.ID }}`,
 		Check: core.TestCheckCombine(
@@ -183,7 +184,7 @@ func Test_ServerUpdate(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			createPlacementGroup("PlacementGroup1"),
 			createPlacementGroup("PlacementGroup2"),
-			core.ExecStoreBeforeCmd("Server", "scw instance server create image=ubuntu-bionic placement-group-id={{ .PlacementGroup1.ID }} stopped=true"),
+			core.ExecStoreBeforeCmd("Server", testServerCommand("image=ubuntu-bionic placement-group-id={{ .PlacementGroup1.ID }} stopped=true")),
 		),
 		Cmd: `scw instance server update {{ .Server.ID }} placement-group-id={{ .PlacementGroup2.ID }}`,
 		Check: core.TestCheckCombine(

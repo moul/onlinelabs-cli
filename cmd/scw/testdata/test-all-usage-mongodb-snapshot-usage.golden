@@ -1,0 +1,25 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+A snapshot is a consistent, instantaneous copy of the Block Storage volume of your Database Instance at a certain point in time.
+
+USAGE:
+  scw mongodb snapshot <command>
+
+AVAILABLE COMMANDS:
+  create      Create a Database Instance snapshot
+  delete      Delete a Database Instance snapshot
+  get         Get a Database Instance snapshot
+  list        List snapshots
+  restore     Restore a Database Instance snapshot
+  update      Update a Database Instance snapshot
+
+FLAGS:
+  -h, --help   help for snapshot
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
+
+Use "scw mongodb snapshot [command] --help" for more information about a command.

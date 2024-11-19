@@ -14,13 +14,28 @@ ARGS:
   os-id       ID of the OS to installation on the server
   hostname    Hostname of the server
   ssh (one of):
-    [all-ssh-keys]        Add all SSH keys on your baremetal instance (cannot be used with ssh-key-ids)
-    ssh-key-ids.{index}   SSH key IDs authorized on the server (cannot be used with all-ssh-keys)
-  [user]                  User used for the installation
-  [password]              Password used for the installation
-  [service-user]          User used for the service to install
-  [service-password]      Password used for the service to install
-  [zone=fr-par-1]         Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | pl-waw-2 | pl-waw-3)
+    [all-ssh-keys]                                                     Add all SSH keys on your baremetal instance (cannot be used with ssh-key-ids)
+    ssh-key-ids.{index}                                                SSH key IDs authorized on the server (cannot be used with all-ssh-keys)
+  [user]                                                               User used for the installation
+  [password]                                                           Password used for the installation
+  [service-user]                                                       User used for the service to install
+  [service-password]                                                   Password used for the service to install
+  [partitioning-schema.disks.{index}.device]                           
+  [partitioning-schema.disks.{index}.partitions.{index}.label]          (unknown_partition_label | uefi | legacy | root | boot | swap | data | home | raid | zfs)
+  [partitioning-schema.disks.{index}.partitions.{index}.number]        
+  [partitioning-schema.disks.{index}.partitions.{index}.size]          
+  [partitioning-schema.raids.{index}.name]                             
+  [partitioning-schema.raids.{index}.level]                             (unknown_raid_level | raid_level_0 | raid_level_1 | raid_level_5 | raid_level_6 | raid_level_10)
+  [partitioning-schema.raids.{index}.devices.{index}]                  
+  [partitioning-schema.filesystems.{index}.device]                     
+  [partitioning-schema.filesystems.{index}.format]                      (unknown_format | fat32 | ext4 | swap | zfs | xfs)
+  [partitioning-schema.filesystems.{index}.mountpoint]                 
+  [partitioning-schema.zfs.pools.{index}.name]                         
+  [partitioning-schema.zfs.pools.{index}.type]                          (unknown_type | no_raid | mirror | raidz1 | raidz2)
+  [partitioning-schema.zfs.pools.{index}.devices.{index}]              
+  [partitioning-schema.zfs.pools.{index}.options.{index}]              
+  [partitioning-schema.zfs.pools.{index}.filesystem-options.{index}]   
+  [zone=fr-par-1]                                                      Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | pl-waw-2 | pl-waw-3)
 
 FLAGS:
   -h, --help   help for install

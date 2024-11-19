@@ -172,8 +172,9 @@ func InstallCommandRun(ctx context.Context, argsI interface{}) (i interface{}, e
 	logger.Debugf("shellArg: %v", shellArg)
 	if shellArg == "" {
 		defaultShellName := "bash"
-		if os.Getenv("SHELL") != "" {
-			defaultShellName = filepath.Base(os.Getenv("SHELL"))
+
+		if core.ExtractEnv(ctx, "SHELL") != "" {
+			defaultShellName = filepath.Base(core.ExtractEnv(ctx, "SHELL"))
 		}
 
 		promptedShell, err := interactive.PromptStringWithConfig(&interactive.PromptStringConfig{

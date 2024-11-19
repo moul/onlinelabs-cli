@@ -22,5 +22,5 @@ func TestResult(t *testing.T) {
 	assert.Equal(t, "", humanOutput)
 	jsonOutput, err := result.MarshalJSON()
 	require.NoError(t, err)
-	assert.Equal(t, []byte("{}"), jsonOutput)
+	assert.JSONEq(t, "{}", string(jsonOutput))
 }

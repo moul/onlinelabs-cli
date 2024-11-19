@@ -7,7 +7,7 @@ import (
 func createInstance() core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(
 		"Instance",
-		"scw instance server create stopped=true image=ubuntu_focal",
+		"scw instance server create type=DEV1-S stopped=true image=ubuntu_focal",
 	)
 }
 

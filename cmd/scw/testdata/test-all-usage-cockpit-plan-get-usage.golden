@@ -1,6 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
 Retrieve a pricing plan for the given Project, specified by the ID of the Project.
+Deprecated, retention is now managed at the data source level.
 
 USAGE:
   scw cockpit plan get [arg=value ...]

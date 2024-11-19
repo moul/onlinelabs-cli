@@ -8,6 +8,7 @@ USAGE:
 AVAILABLE COMMANDS:
   definition  
   run         
+  secret      
 
 FLAGS:
   -h, --help   help for jobs

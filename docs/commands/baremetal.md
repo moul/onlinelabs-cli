@@ -17,6 +17,7 @@ Elastic Metal API.
 - [Operating System (OS) management commands](#operating-system-(os)-management-commands)
   - [Get OS with an ID](#get-os-with-an-id)
   - [List available OSes](#list-available-oses)
+- [Partitioning-schemas management commands](#partitioning-schemas-management-commands)
 - [Private Network management command](#private-network-management-command)
   - [Add a server to a Private Network](#add-a-server-to-a-private-network)
   - [Delete a Private Network](#delete-a-private-network)
@@ -376,6 +377,20 @@ scw baremetal os list [arg=value ...]
 
 
 
+## Partitioning-schemas management commands
+
+Allows to customize the partitioning schemas of your servers (available on some offers and OSs).
+
+Allows to customize the partitioning schemas of your servers (available on some offers and OSs).
+
+**Usage:**
+
+```
+scw baremetal partitioning-schemas
+```
+
+
+
 ## Private Network management command
 
 A Private Network allows you to interconnect your resources
@@ -530,6 +545,21 @@ scw baremetal server create [arg=value ...]
 | install.password |  | Password for the installation |
 | install.service-user |  | Regular user that runs the service to be installed on the server |
 | install.service-password |  | Password used for the service to install |
+| install.partitioning-schema.disks.{index}.device |  |  |
+| install.partitioning-schema.disks.{index}.partitions.{index}.label | One of: `unknown_partition_label`, `uefi`, `legacy`, `root`, `boot`, `swap`, `data`, `home`, `raid`, `zfs` |  |
+| install.partitioning-schema.disks.{index}.partitions.{index}.number |  |  |
+| install.partitioning-schema.disks.{index}.partitions.{index}.size |  |  |
+| install.partitioning-schema.raids.{index}.name |  |  |
+| install.partitioning-schema.raids.{index}.level | One of: `unknown_raid_level`, `raid_level_0`, `raid_level_1`, `raid_level_5`, `raid_level_6`, `raid_level_10` |  |
+| install.partitioning-schema.raids.{index}.devices.{index} |  |  |
+| install.partitioning-schema.filesystems.{index}.device |  |  |
+| install.partitioning-schema.filesystems.{index}.format | One of: `unknown_format`, `fat32`, `ext4`, `swap`, `zfs`, `xfs` |  |
+| install.partitioning-schema.filesystems.{index}.mountpoint |  |  |
+| install.partitioning-schema.zfs.pools.{index}.name |  |  |
+| install.partitioning-schema.zfs.pools.{index}.type | One of: `unknown_type`, `no_raid`, `mirror`, `raidz1`, `raidz2` |  |
+| install.partitioning-schema.zfs.pools.{index}.devices.{index} |  |  |
+| install.partitioning-schema.zfs.pools.{index}.options.{index} |  |  |
+| install.partitioning-schema.zfs.pools.{index}.filesystem-options.{index} |  |  |
 | option-ids.{index} |  | IDs of options to enable on server |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
@@ -650,6 +680,21 @@ scw baremetal server install <server-id ...> [arg=value ...]
 | password |  | Password used for the installation |
 | service-user |  | User used for the service to install |
 | service-password |  | Password used for the service to install |
+| partitioning-schema.disks.{index}.device |  |  |
+| partitioning-schema.disks.{index}.partitions.{index}.label | One of: `unknown_partition_label`, `uefi`, `legacy`, `root`, `boot`, `swap`, `data`, `home`, `raid`, `zfs` |  |
+| partitioning-schema.disks.{index}.partitions.{index}.number |  |  |
+| partitioning-schema.disks.{index}.partitions.{index}.size |  |  |
+| partitioning-schema.raids.{index}.name |  |  |
+| partitioning-schema.raids.{index}.level | One of: `unknown_raid_level`, `raid_level_0`, `raid_level_1`, `raid_level_5`, `raid_level_6`, `raid_level_10` |  |
+| partitioning-schema.raids.{index}.devices.{index} |  |  |
+| partitioning-schema.filesystems.{index}.device |  |  |
+| partitioning-schema.filesystems.{index}.format | One of: `unknown_format`, `fat32`, `ext4`, `swap`, `zfs`, `xfs` |  |
+| partitioning-schema.filesystems.{index}.mountpoint |  |  |
+| partitioning-schema.zfs.pools.{index}.name |  |  |
+| partitioning-schema.zfs.pools.{index}.type | One of: `unknown_type`, `no_raid`, `mirror`, `raidz1`, `raidz2` |  |
+| partitioning-schema.zfs.pools.{index}.devices.{index} |  |  |
+| partitioning-schema.zfs.pools.{index}.options.{index} |  |  |
+| partitioning-schema.zfs.pools.{index}.filesystem-options.{index} |  |  |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 

@@ -40,7 +40,7 @@ scw fip ip attach [arg=value ...]
 |------|---|-------------|
 | fips-ids.{index} | Required | List of flexible IP IDs to attach to a server |
 | server-id | Required | ID of the server on which to attach the flexible IPs |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -65,7 +65,7 @@ scw fip ip create [arg=value ...]
 | server-id |  | ID of the server to which the newly created flexible IP will be attached. |
 | reverse |  | Value of the reverse DNS |
 | is-ipv6 |  | Defines whether the flexible IP has an IPv6 address. |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -85,7 +85,7 @@ scw fip ip delete <fip-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | fip-id | Required | ID of the flexible IP to delete |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -105,7 +105,7 @@ scw fip ip detach [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | fips-ids.{index} | Required | List of flexible IP IDs to detach from a server. Multiple IDs can be provided. Note that flexible IPs must belong to the same MAC group. |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -125,7 +125,7 @@ scw fip ip get <fip-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | fip-id | Required | ID of the flexible IP |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -150,7 +150,7 @@ scw fip ip list [arg=value ...]
 | server-ids.{index} |  | Filter by server IDs, only flexible IPs with these server IDs will be returned |
 | project-id |  | Filter by Project ID, only flexible IPs from this Project will be returned |
 | organization-id |  | Filter by Organization ID, only flexible IPs from this Organization will be returned |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `all` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -173,7 +173,7 @@ scw fip ip update <fip-id ...> [arg=value ...]
 | description |  | Flexible IP description (max. 255 characters) |
 | tags.{index} |  | Tags associated with the flexible IP |
 | reverse |  | Value of the reverse DNS |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -199,7 +199,7 @@ scw fip mac create [arg=value ...]
 |------|---|-------------|
 | fip-id | Required | ID of the flexible IP for which to generate a virtual MAC |
 | mac-type | Required<br />One of: `unknown_type`, `vmware`, `xen`, `kvm` | TODO |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -219,7 +219,7 @@ scw fip mac delete [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | fip-id | Required | ID of the flexible IP from which to delete the virtual MAC |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -240,7 +240,7 @@ scw fip mac duplicate [arg=value ...]
 |------|---|-------------|
 | fip-id | Required | ID of the flexible IP on which to duplicate the virtual MAC |
 | duplicate-from-fip-id | Required | ID of the flexible IP to duplicate the Virtual MAC from |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -261,7 +261,7 @@ scw fip mac move [arg=value ...]
 |------|---|-------------|
 | fip-id | Required |  |
 | dst-fip-id |  |  |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 

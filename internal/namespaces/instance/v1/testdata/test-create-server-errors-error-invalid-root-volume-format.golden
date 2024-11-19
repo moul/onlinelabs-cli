@@ -1,12 +1,7 @@
 🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Invalid volume format '20GB'
-
-Hint:
-You must provide either a UUID ("11111111-1111-1111-1111-111111111111"), a local volume size ("local:100G" or "l:100G") or a block volume size ("block:100G" or "b:100G").
+Failed to create root volume builder: invalid volume format '20GB'
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
-  "message": "invalid volume format '20GB'",
-  "error": {},
-  "hint": "You must provide either a UUID (\"11111111-1111-1111-1111-111111111111\"), a local volume size (\"local:100G\" or \"l:100G\") or a block volume size (\"block:100G\" or \"b:100G\")."
+  "error": "failed to create root volume builder: invalid volume format '20GB'"
 }

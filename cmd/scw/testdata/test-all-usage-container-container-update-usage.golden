@@ -6,26 +6,34 @@ USAGE:
   scw container container update <container-id ...> [arg=value ...]
 
 ARGS:
-  container-id                                   UUID of the container to update
-  [environment-variables.{key}]                  Environment variables of the container
-  [min-scale]                                    Minimum number of instances to scale the container to
-  [max-scale]                                    Maximum number of instances to scale the container to
-  [memory-limit]                                 Memory limit of the container in MB
-  [cpu-limit]                                    CPU limit of the container in mvCPU
-  [timeout]                                      Processing time limit for the container
-  [redeploy]                                     Defines whether to redeploy failed containers
-  [privacy]                                      Privacy settings of the container (unknown_privacy | public | private)
-  [description]                                  Description of the container
-  [registry-image]                               Name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag").
-  [max-concurrency]                              Number of maximum concurrent executions of the container
-  [protocol]                                      (unknown_protocol | http1 | h2c)
-  [port]                                         
-  [secret-environment-variables.{index}.key]     
-  [secret-environment-variables.{index}.value]   
-  [http-option=enabled]                          Configure how HTTP and HTTPS requests are handled (unknown_http_option | enabled | redirected)
-  [sandbox]                                      Execution environment of the container (unknown_sandbox | v1 | v2)
-  [local-storage-limit]                          Local storage limit of the container (in MB)
-  [region=fr-par]                                Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  container-id                                     UUID of the container to update
+  [environment-variables.{key}]                    Environment variables of the container
+  [min-scale]                                      Minimum number of instances to scale the container to
+  [max-scale]                                      Maximum number of instances to scale the container to
+  [memory-limit]                                   Memory limit of the container in MB
+  [cpu-limit]                                      CPU limit of the container in mvCPU
+  [timeout]                                        Processing time limit for the container
+  [redeploy]                                       Defines whether to redeploy failed containers
+  [privacy]                                        Privacy settings of the container (unknown_privacy | public | private)
+  [description]                                    Description of the container
+  [registry-image]                                 Name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag").
+  [protocol]                                        (unknown_protocol | http1 | h2c)
+  [port]                                           
+  [secret-environment-variables.{index}.key]       
+  [secret-environment-variables.{index}.value]     
+  [http-option]                                    Configure how HTTP and HTTPS requests are handled (unknown_http_option | enabled | redirected)
+  [sandbox]                                        Execution environment of the container (unknown_sandbox | v1 | v2)
+  [local-storage-limit]                            Local storage limit of the container (in MB)
+  [scaling-option.concurrent-requests-threshold]   
+  [scaling-option.cpu-usage-threshold]             
+  [scaling-option.memory-usage-threshold]          
+  [health-check.http.path]                         Path to use for the HTTP health check.
+  [health-check.failure-threshold]                 Number of consecutive health check failures before considering the container unhealthy.
+  [health-check.interval]                          Period between health checks.
+  [region=fr-par]                                  Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+
+DEPRECATED ARGS:
+  [max-concurrency]   Number of maximum concurrent executions of the container
 
 FLAGS:
   -h, --help   help for update

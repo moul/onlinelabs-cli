@@ -10,7 +10,6 @@ This API allows you to manage Kubernetes Kapsule and Kosmos clusters.
   - [List Clusters](#list-clusters)
   - [List available cluster types for a cluster](#list-available-cluster-types-for-a-cluster)
   - [List available versions for a Cluster](#list-available-versions-for-a-cluster)
-  - [Migrate a cluster to Routed IPs](#migrate-a-cluster-to-routed-ips)
   - [Migrate a cluster to SBS CSI](#migrate-a-cluster-to-sbs-csi)
   - [Reset the admin token of a Cluster](#reset-the-admin-token-of-a-cluster)
   - [Change the Cluster type](#change-the-cluster-type)
@@ -99,7 +98,7 @@ scw k8s cluster create [arg=value ...]
 | pools.{index}.upgrade-policy.max-unavailable |  | The maximum number of nodes that can be not ready at the same time |
 | pools.{index}.upgrade-policy.max-surge |  | The maximum number of nodes to be created during the upgrade |
 | pools.{index}.zone |  | Zone in which the pool's nodes will be spawned |
-| pools.{index}.root-volume-type | One of: `default_volume_type`, `l_ssd`, `b_ssd` | Defines the system volume disk type. Two different types of volume (`volume_type`) are provided: `l_ssd` is a local block storage which means your system is stored locally on your node's hypervisor. `b_ssd` is a remote block storage which means your system is stored on a centralized and resilient cluster |
+| pools.{index}.root-volume-type | One of: `default_volume_type`, `l_ssd`, `b_ssd`, `sbs_5k`, `sbs_15k` | Defines the system volume disk type. Two different types of volume (`volume_type`) are provided: `l_ssd` is a local block storage which means your system is stored locally on your node's hypervisor. `b_ssd` is a remote block storage which means your system is stored on a centralized and resilient cluster |
 | pools.{index}.root-volume-size |  | System volume disk size |
 | pools.{index}.public-ip-disabled |  | Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway |
 | autoscaler-config.scale-down-disabled |  | Disable the cluster autoscaler |
@@ -313,36 +312,6 @@ scw k8s cluster list-available-versions <cluster-id ...> [arg=value ...]
 List all versions that a cluster can upgrade to
 ```
 scw k8s cluster list-available-versions 11111111-1111-1111-111111111111
-```
-
-
-
-
-### Migrate a cluster to Routed IPs
-
-Migrate the nodes of an existing cluster to Routed IPs and enable Routed IPs for all future nodes.
-
-**Usage:**
-
-```
-scw k8s cluster migrate-to-routed-ips <cluster-id ...> [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | Cluster ID for which the routed ip will be enabled for the nodes |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
-
-
-**Examples:**
-
-
-Migrate a cluster to Routed IPs
-```
-scw k8s cluster migrate-to-routed-ips 11111111-1111-1111-111111111111
 ```
 
 
@@ -937,7 +906,7 @@ scw k8s pool create [arg=value ...]
 | upgrade-policy.max-unavailable |  |  |
 | upgrade-policy.max-surge |  |  |
 | zone |  | Zone in which the pool's nodes will be spawned |
-| root-volume-type | One of: `default_volume_type`, `l_ssd`, `b_ssd` | Defines the system volume disk type. Two different types of volume (`volume_type`) are provided: `l_ssd` is a local block storage which means your system is stored locally on your node's hypervisor. `b_ssd` is a remote block storage which means your system is stored on a centralized and resilient cluster |
+| root-volume-type | One of: `default_volume_type`, `l_ssd`, `b_ssd`, `sbs_5k`, `sbs_15k` | Defines the system volume disk type. Two different types of volume (`volume_type`) are provided: `l_ssd` is a local block storage which means your system is stored locally on your node's hypervisor. `b_ssd` is a remote block storage which means your system is stored on a centralized and resilient cluster |
 | root-volume-size |  | System volume disk size |
 | public-ip-disabled |  | Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |

@@ -6,10 +6,12 @@ cli-test-bucket-list-9206072663127448888  few seconds ago
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
+    "BucketRegion": null,
     "CreationDate": "2024-04-30T16:43:46Z",
     "Name": "cli-test-bucket-list-8501647004036398711"
   },
   {
+    "BucketRegion": null,
     "CreationDate": "2024-04-30T16:43:46Z",
     "Name": "cli-test-bucket-list-9206072663127448888"
   }

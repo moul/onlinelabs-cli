@@ -314,7 +314,7 @@ scw lb backend create [arg=value ...]
 | timeout-tunnel | Default: `15m` | Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout) |
 | on-marked-down-action | One of: `on_marked_down_action_none`, `shutdown_sessions` | Action to take when a backend server is marked as down |
 | proxy-protocol | One of: `proxy_protocol_unknown`, `proxy_protocol_none`, `proxy_protocol_v1`, `proxy_protocol_v2`, `proxy_protocol_v2_ssl`, `proxy_protocol_v2_ssl_cn` | Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software |
-| failover-host |  | Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud |
+| failover-host |  | Scaleway Object Storage bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud |
 | ssl-bridging |  | Defines whether to enable SSL bridging between the Load Balancer and backend servers |
 | ignore-ssl-server-verify |  | Defines whether the server certificate verification should be ignored |
 | redispatch-attempt-count |  | Whether to use another backend server on each attempt |
@@ -488,7 +488,7 @@ scw lb backend update <backend-id ...> [arg=value ...]
 | timeout-tunnel | Default: `15m` | Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout) |
 | on-marked-down-action | One of: `on_marked_down_action_none`, `shutdown_sessions` | Action to take when a backend server is marked as down |
 | proxy-protocol | One of: `proxy_protocol_unknown`, `proxy_protocol_none`, `proxy_protocol_v1`, `proxy_protocol_v2`, `proxy_protocol_v2_ssl`, `proxy_protocol_v2_ssl_cn` | Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software |
-| failover-host |  | Scaleway S3 bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud |
+| failover-host |  | Scaleway Object Storage bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud |
 | ssl-bridging |  | Defines whether to enable SSL bridging between the Load Balancer and backend servers |
 | ignore-ssl-server-verify |  | Defines whether the server certificate verification should be ignored |
 | redispatch-attempt-count |  | Whether to use another backend server on each attempt |

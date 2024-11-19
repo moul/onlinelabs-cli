@@ -1,0 +1,12 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+✅ Success.
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+successfully deleted ip 51.15.213.236
+successfully deleted ip 2001:bc8:710:4a69:dc00:ff:fe78:4e37
+successfully deleted volume Ubuntu 18.04 Bionic Beaver (20 GB l_ssd)
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "message": "Success",
+  "details": ""
+}

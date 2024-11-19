@@ -1,3 +1,5 @@
+//go:build darwin || linux || windows
+
 package object
 
 import (
@@ -76,11 +78,6 @@ func verifyACLInput(aclInput string) (bool, []types.BucketCannedACL) {
 		}
 	}
 	return false, possibleValues
-}
-
-type CustomS3ACLGrant struct {
-	Grantee    *string
-	Permission types.Permission
 }
 
 func awsACLToCustomGrants(output *s3.GetBucketAclOutput) []CustomS3ACLGrant {
