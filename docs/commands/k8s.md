@@ -579,6 +579,7 @@ scw k8s kubeconfig get <cluster-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | cluster-id | Required | Cluster ID from which to retrieve the kubeconfig |
+| auth-method | Default: `legacy`<br />One of: `legacy`, `cli`, `copy-token` | Which method to use to authenticate using kubelet |
 | region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
@@ -611,6 +612,7 @@ scw k8s kubeconfig install <cluster-id ...> [arg=value ...]
 |------|---|-------------|
 | cluster-id | Required | Cluster ID from which to retrieve the kubeconfig |
 | keep-current-context |  | Whether or not to keep the current kubeconfig context unmodified |
+| auth-method | Default: `legacy`<br />One of: `legacy`, `cli`, `copy-token` | Which method to use to authenticate using kubelet |
 | region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 

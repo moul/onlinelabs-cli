@@ -207,12 +207,12 @@ type ExecConfig struct {
 	Command string `json:"command"`
 	// Arguments to pass to the command when executing it.
 	// +optional
-	Args []string `json:"args"`
+	Args []string `json:"args,omitempty"`
 	// Env defines additional environment variables to expose to the process. These
 	// are unioned with the host's environment, as well as variables client-go uses
 	// to pass argument to the plugin.
 	// +optional
-	Env []ExecEnvVar `json:"env"`
+	Env []ExecEnvVar `json:"env,omitempty"`
 
 	// Preferred input version of the ExecInfo. The returned ExecCredentials MUST use
 	// the same encoding version as the input.
