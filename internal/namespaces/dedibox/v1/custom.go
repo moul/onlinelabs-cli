@@ -9,6 +9,8 @@ import (
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
+	cmds.MustFind("dedibox", "server", "create").Override(serviceCreateBuilder)
+
 	for _, commandPath := range [][]string{
 		{"dedibox", "server", "list"},
 		{"dedibox", "service", "list"},
