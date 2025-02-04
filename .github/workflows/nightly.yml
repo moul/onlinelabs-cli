@@ -67,6 +67,9 @@ jobs:
           SCW_SECRET_KEY: ${{ secrets.SCW_SECRET_KEY }}
           SCW_DEFAULT_ORGANIZATION_ID: ${{ secrets.SCW_DEFAULT_ORGANIZATION_ID }}
           SCW_DEFAULT_PROJECT_ID: ${{ secrets.SCW_DEFAULT_PROJECT_ID }}
+      - name: Run acceptance test for cassettes
+        if: success() || failure() # If the job is not cancelled, run it regardless of the result of the previous step
+        run: go test -v github.com/scaleway/scaleway-cli/v2/internal/testhelpers -run TestAccCassettes_Validator
       - name: Ping on failure
         if: ${{ failure() }}
         run: |
